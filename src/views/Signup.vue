@@ -1,37 +1,64 @@
 <script>
-import { reactive } from "vue"; // "from '@vue/composition-api'" if you are using Vue <2.7
+// import { reactive } from "vue"; // "from '@vue/composition-api'" if you are using Vue <2.7
 import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 
 export default {
-  setup() {
-    const state = reactive({
-      firstName: "",
-      lastName: "",
-      contact: {
-        email: "",
-      },
-      password: "",
-      confirmPassword: "",
-    });
-    const rules = {
-      firstName: { required, minLength: minLength(3) }, // Matches state.firstName
-      lastName: { required, minLength: minLength(3) }, // Matches state.lastName
-      contact: {
-        email: { required, email }, // Matches state.contact.email
-      },
-      password: {
-        required,
-        minLength: minLength(6),
-      },
-      confirmPassword: {
-        sameAs: sameAs("password"),
+  data() {
+    return {
+      v$: useVuelidate(),
+      userData: {
+        firstName: "",
+        lastName: "",
+        contact: {
+          email: "femmybla@gmail.com",
+        },
       },
     };
+  },
+  methods: {
+    submitForm() {
+      const formData = {
+        firstName: this.userData.firstName,
+        lastName: this.userData.lastName,
+        email: this.userData.contact.email,
+      };
+      console.log("My form Data ", formData);
+    },
+  },
 
-    const v$ = useVuelidate(rules, state);
+  // const state = reactive({
+  //   firstName: "",
+  //   lastName: "",
+  //   contact: {
+  //     email: "",
+  //   },
+  //   password: "",
+  //   confirmPassword: "",
+  // });
+  // const rules = {
+  //   firstName: { required, minLength: minLength(3) }, // Matches state.firstName
+  //   lastName: { required, minLength: minLength(3) }, // Matches state.lastName
+  //   contact: {
+  //     email: { required, email }, // Matches state.contact.email
+  //   },
+  //   password: {
+  //     required,
+  //     minLength: minLength(6),
+  //   },
+  //   confirmPassword: {
+  //     sameAs: sameAs("password"),
+  //   },
+  // };
 
-    return { state, v$ };
+  validations() {
+    return {
+      firstName: { require }, // Matches this.firstName
+      lastName: { required }, // Matches this.lastName
+      contact: {
+        email: { required, email }, // Matches this.contact.email
+      },
+    };
   },
 };
 </script>
@@ -56,18 +83,18 @@ export default {
         <h1 class="text-center fw-bold mb-4">Sign Up</h1>
 
         <div id="form-container" class="rounded-3 py-4 px-5 w-75">
-          <form>
+          <form @submit.prevent="submitForm">
             <div class="form-group my-2">
               <label for="name" style="font-weight: 500">Full Name</label>
               <input
                 type="text"
-                v-model="state.firstName"
+                v-model="userData.firstName"
                 class="form-control rounded-3"
               />
-              <!-- <small class="text-danger" v-if="!$v.state.firstName.required">
+              <!-- <small class="text-danger" v-if="!$v.firstName.required">
                 First name is required.
               </small>
-              <small class="text-danger" v-if="!$v.state.firstName.minLenght">
+              <small class="text-danger" v-if="!$v.firstName.minLenght">
                 Name must be atleast 3 characters.
               </small> -->
               <!-- <div
@@ -82,7 +109,7 @@ export default {
               <label for="email" style="font-weight: 500">Email</label>
               <input
                 type="email"
-                v-model="state.contact.email"
+                v-model="userData.contact.email"
                 class="form-control rounded-3"
               />
             </div>

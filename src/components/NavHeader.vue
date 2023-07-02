@@ -8,16 +8,20 @@ export default {
   },
   methods: {
     toggle() {
-      return this.$store.dispatch("IS_CLICKED");
+      return this.$store.dispatch("IS_DARKMODE");
     },
   },
   computed: {
-    ...mapGetters(["isClicked"]),
+    ...mapGetters(["isDarkMode"]),
   },
 };
 </script>
 <template>
-  <div id="navbar" class="px-5 py-3 d-flex justify-content-between">
+  <div
+    id="navbar"
+    class="px-5 py-3 d-flex justify-content-between"
+    :class="{ darkNav: isDarkMode }"
+  >
     <div class="navlogo">
       <router-link to="/">
         <img src="../assets/spec-wallet.png" alt="" />
@@ -28,13 +32,15 @@ export default {
         <span
           class="button d-flex align-items-center justify-content-around"
           @click="toggle"
-          ><span class="round-button" :class="{ 'inner-button': isClicked }"
-            ><i class="fa-sharp fa-solid fa-brightness-low text-white"></i>
-            <i class="fa-solid fa-brightness"></i></span
-          ><i class="fa-solid fa-moon ms-3"></i
+          ><span class="round-button" :class="{ 'inner-button': isDarkMode }">
+          </span>
+          <span v-show="isDarkMode" class="material-symbols-outlined">
+            wb_sunny
+          </span>
+          <i class="fa-solid fa-moon"></i
         ></span>
-        <i class="fa-sharp fa-solid fa-brightness-low text-white"></i>
-        <i class="fa-solid fa-brightness"></i>
+        <!-- <i class="fa-sharp fa-solid fa-brightness-low text-white"></i>
+        <i class="fa-solid fa-brightness"></i> -->
       </div>
       <div class="routerBtn d-inline-flex gap-3">
         <router-link to="/signup">
@@ -57,6 +63,11 @@ export default {
 #navbar {
   box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 }
+.darkNav {
+  // background-color: #646cff;
+  background-color: rgba(0, 0, 0, 1) !important;
+  border-bottom: 2px solid #171717;
+}
 /* .toggleBtn {
   top: 50%;
   transform: translateY(-50%);
@@ -74,6 +85,9 @@ export default {
   border: 1px solid #222221;
   border-radius: 40px;
   transition: 200ms all;
+  .material-symbols-outlined {
+    font-size: 20px !important;
+  }
 }
 .round-button {
   position: absolute;

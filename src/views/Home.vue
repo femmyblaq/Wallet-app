@@ -1,9 +1,18 @@
-<script setup>
-// import { routerLink } from "vue-router";
+<script>
+import { mapGetters } from "vuex";
+// import { computed } from "vue";
+export default {
+  computed: {
+    ...mapGetters(["isDarkMode"]),
+    // darkMode() {
+    //   return this.$store.getters.isDarkMode;
+    // },
+  },
+};
 </script>
 
 <template>
-  <div id="home" class="position-relative">
+  <div id="home" class="position-relative" :class="{ darkHome: isDarkMode }">
     <div class="row m-0">
       <div class="col-lg-6 col-sm-12 col-md-12 my-auto">
         <h1
@@ -11,6 +20,7 @@
           data-aos-duration="1500"
           data-aos="fade-down"
           class="fw-bold"
+          :class="{ darkH1: isDarkMode }"
         >
           Make <span style="color: #e23703">Payment</span> very easy and
           effectively!
@@ -20,6 +30,7 @@
           data-aos-duration="1500"
           data-aos="fade-left"
           class="fs-4 my-4"
+          :class="{ darktext: isDarkMode }"
         >
           software application that allows users to store and manage their
           digital financial assets, such as money, payment cards, loyalty cards,
@@ -32,12 +43,18 @@
           class="d-inline-flex gap-3"
         >
           <router-link to="/signup">
-            <button class="rounded-5 fs-5 btn-outline-light btn">
+            <button
+              :class="{ firstDarkBtn: isDarkMode }"
+              class="rounded-5 fs-5 btn-outline-light btn"
+            >
               Sign up
             </button>
           </router-link>
           <router-link to="/signin">
-            <button class="rounded-5 fs-5 btn-outline-light btn">
+            <button
+              :class="{ secondDarkBtn: isDarkMode }"
+              class="rounded-5 fs-5 btn-outline-light btn"
+            >
               Sign in
             </button>
           </router-link>
@@ -50,7 +67,18 @@
           data-aos-duration="1500"
           data-aos="fade-up"
         >
-          <img src="../assets/HomeSpewallet.svg" class="" alt="" />
+          <img
+            v-show="!isDarkMode"
+            src="../assets/HomeSpewallet.svg"
+            class=""
+            alt=""
+          />
+          <img
+            v-show="isDarkMode"
+            src="../assets/HomeSpewalletDark.svg"
+            class=""
+            alt=""
+          />
         </div>
       </div>
     </div>
@@ -92,6 +120,20 @@
       width: 75%;
       text-align: center;
     }
+  }
+}
+.darkHome {
+  background-color: rgba(0, 0, 0, 1);
+  .darkH1 {
+    color: #fff;
+  }
+  .darktext {
+    color: #ccc;
+  }
+  .firstDarkBtn,
+  .secondDarkBtn {
+    background-color: #fff !important;
+    color: #000 !important;
   }
 }
 @media (min-width: 990px) and (max-width: 1150px) {
@@ -161,8 +203,7 @@
   }
 }
 </style>
-
-<!-- <script></script>
-<template>
-  <h4>I'm Home</h4>
-</template> -->
+<!-- 
+Drk bckground color 
+-tw-bg-opacity: 1;
+    background-color: rgba(0,0,0,var(--tw-bg-opacity)); -->

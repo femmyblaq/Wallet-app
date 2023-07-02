@@ -1,8 +1,33 @@
+<script>
+import { mapActions, mapGetters, mapMutations } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["isClicked"]),
+    ...mapActions(["initializeDarkMode"]),
+  },
+  created() {
+    console.log("My this.darkMode Local Storage", this.initializeDarkMode);
+  },
+  methods: {
+    darkMode() {
+      this.initializeDarkMode();
+    },
+  },
+  watch: {
+    watchDarkMode(initializeDarkMode) {
+      this.initializeDarkMode;
+      console.log("Hey there. I'm been watched", this.isClicked);
+    },
+  },
+};
+</script>
+
 <template>
   <!-- <div class="bg-danger  d-grid align-items-center"> -->
-  <div id="funding">
+  <div id="funding" :class="{ 'bg-primary': initializeDarkMode }">
     <div id="form-container" class="rounded-3 p-5 auto">
       <form>
+        <div>{{ watchDarkMode }}</div>
         <h3>Fund Wallet</h3>
         <div class="form-group my-2">
           <label class="form-label" style="font-weight: 500" for="form2"
@@ -30,14 +55,6 @@
   <!-- <ModalVue /> -->
   <!-- </div> -->
 </template>
-<script>
-// import ModalVue from "../components/Modal.vue";
-export default {
-  components: {
-    // ModalVue,
-  },
-};
-</script>
 <style lang="scss" scoped>
 #funding {
   width: 60%;
