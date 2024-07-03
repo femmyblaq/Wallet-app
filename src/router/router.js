@@ -19,6 +19,11 @@ const routes = [
     component: () => import("../views/Signin.vue"),
   },
   {
+    path: "/formtesting",
+    name: "Formtesting",
+    component: () => import("../views/Formvlidte.vue"),
+  },
+  {
     path: "/dashboard",
     component: TheLayout,
     mata: {

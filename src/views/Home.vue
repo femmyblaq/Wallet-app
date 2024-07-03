@@ -1,12 +1,16 @@
 <script>
 import { mapGetters } from "vuex";
 // import { computed } from "vue";
+// import FormValidation from "../views/Formvlidte.vue";
 export default {
   computed: {
     ...mapGetters(["isDarkMode"]),
     // darkMode() {
     //   return this.$store.getters.isDarkMode;
     // },
+  },
+  components: {
+    // FormValidation,
   },
 };
 </script>
@@ -81,6 +85,7 @@ export default {
           />
         </div>
       </div>
+      <FormValidation />
     </div>
   </div>
 </template>

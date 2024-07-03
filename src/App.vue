@@ -1,6 +1,6 @@
 <script setup>
 import NavHeader from "./components/NavHeader.vue";
-import PreLoader from "./components/PreLoader.vue";
+// import PreLoader from "./components/PreLoader.vue";
 // import { ref, RouterView } from "vue";
 // const Pageloads = ref(false);
 //   mounted() {
@@ -12,7 +12,7 @@ import PreLoader from "./components/PreLoader.vue";
 
 <template>
   <div>
-    <PreLoader v-show="!loads" class="d-none" :class="{ prel: loads }" />
+    <!-- <PreLoader v-show="!loads" class="d-none" :class="{ prel: loads }" /> -->
     <NavHeader
       v-if="
         !['Dashboard', 'Withdraw', 'Payment', 'Set_pin'].includes($route.name)
